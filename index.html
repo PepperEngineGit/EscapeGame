@@ -213,6 +213,17 @@
   </div>
 
   <script>
+    // Vérifier si le joueur a déjà perdu
+    function checkGameStatus() {
+      const gameStatus = sessionStorage.getItem('escapeGameStatus');
+      if (gameStatus === 'lost') {
+        window.location.href = 'perdu.html';
+      }
+    }
+
+    // Vérifier le statut au chargement de la page
+    window.onload = checkGameStatus;
+
     function resetAudio() {
       const audio = document.getElementById('wybon-audio');
       audio.currentTime = 0;
@@ -223,7 +234,8 @@
     let currentChoice = null;
 
     function showConfirmation(index) {
-      if (hasChosen) {
+      const gameStatus = sessionStorage.getItem('escapeGameStatus');
+      if (gameStatus === 'lost' || hasChosen) {
         window.location.href = 'perdu.html';
         return;
       }
@@ -236,8 +248,10 @@
       if (confirmed) {
         hasChosen = true;
         if (currentChoice === 1) { // IMG_0451
+          sessionStorage.setItem('escapeGameStatus', 'won');
           window.location.href = 'video.html';
         } else {
+          sessionStorage.setItem('escapeGameStatus', 'lost');
           window.location.href = 'perdu.html';
         }
       }

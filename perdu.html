@@ -2,6 +2,9 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#ff0000">
     <title>Game Over</title>
     <style>
         body {
@@ -24,6 +27,26 @@
     <div class="message">
         <h1>GAME OVER</h1>
         <p>Vous avez fait le mauvais choix...</p>
+        <p style="font-size: 0.8em; margin-top: 20px;">Fermez le navigateur pour réessayer</p>
     </div>
+
+    <script>
+        // Empêcher le retour à la page précédente
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, document.URL);
+        });
+
+        // Vérifier si le joueur a vraiment perdu
+        function checkLostStatus() {
+            const gameStatus = sessionStorage.getItem('escapeGameStatus');
+            if (gameStatus !== 'lost') {
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Vérifier au chargement de la page
+        window.onload = checkLostStatus;
+    </script>
 </body>
 </html>
