@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+    <title>Félicitations !</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            color: #28a745;
+            margin: 20px 0;
+        }
+
+        .video-container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 10px auto;
+            background-color: #111;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 20px rgba(40, 167, 69, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .video-container {
+                width: 98%;
+                padding: 10px;
+                margin: 5px auto;
+            }
+        }
+
+        video {
+            width: 100%;
+            max-height: 80vh;
+            border-radius: 5px;
+            background-color: #000;
+            object-fit: contain;
+        }
+
+        .controls {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+        }
+
+        @media (max-width: 480px) {
+            button {
+                padding: 8px 15px;
+                font-size: 1em;
+                margin: 3px;
+            }
+            h1 {
+                font-size: 1.5em;
+                margin: 15px 10px;
+            }
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .error-message {
+            display: none;
+            color: #dc3545;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Félicitations ! Vous avez trouvé la bonne personne !</h1>
+    
+    <div class="video-container">
+        <video id="escapeVideo" controls>
+            <source src="Videosescapegame.MOV" type="video/quicktime">
+            <source src="Videosescapegame.MOV" type="video/mp4">
+            Votre navigateur ne supporte pas la lecture de cette vidéo.
+        </video>
+        <div class="controls">
+            <button onclick="document.getElementById('escapeVideo').play()">Lecture</button>
+            <button onclick="document.getElementById('escapeVideo').pause()">Pause</button>
+            <button onclick="toggleFullScreen()">Plein écran</button>
+        </div>
+    </div>
+    
+    <div id="errorMessage" class="error-message">
+        Impossible de lire la vidéo. Veuillez vérifier que le format est supporté par votre navigateur.
+    </div>
+
+    <script>
+        const video = document.getElementById('escapeVideo');
+        const errorMessage = document.getElementById('errorMessage');
+
+        video.addEventListener('error', function() {
+            errorMessage.style.display = 'block';
+        });
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.webkitRequestFullscreen) {
+                    video.webkitRequestFullscreen();
+                } else if (video.msRequestFullscreen) {
+                    video.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+
+        // Empêcher le retour à la page précédente
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, document.URL);
+        });
+    </script>
+</body>
+</html>
