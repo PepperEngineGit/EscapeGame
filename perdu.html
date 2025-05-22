@@ -8,26 +8,40 @@
     <title>Game Over</title>
     <style>
         body {
-            background-color: #ff0000;
-            color: white;
+            background-color: #1a1a1a;
+            color: #ff3333;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
+            overflow: hidden;
         }
+
         .message {
             text-align: center;
-            font-size: 2em;
+            animation: pulse 2s infinite;
+        }
+
+        h1 {
+            font-size: 5em;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(255, 51, 51, 0.5);
+            letter-spacing: 4px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
 <body>
     <div class="message">
         <h1>GAME OVER</h1>
-        <p>Vous avez fait le mauvais choix...</p>
-        <p style="font-size: 0.8em; margin-top: 20px;">Fermez le navigateur pour réessayer</p>
+        
     </div>
 
     <script>
